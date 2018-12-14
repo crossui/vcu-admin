@@ -1,0 +1,72 @@
+.app-main {
+    height: 100%;
+    .trigger {
+        font-size: 18px;
+        line-height: 64px;
+        padding: 0 24px;
+        cursor: pointer;
+        transition: color .3s;
+        &:hover {
+            color: #1890ff;
+        }
+    }
+    .logo {
+        height: 32px;
+        background: rgba(255, 255, 255, .2);
+        margin: 16px;
+    }
+    .vcu-breadcrumb {
+        margin-left: 20px;
+        font-size: 16px;
+        .vcuicon {
+            font-size: 16px;
+        }
+    }
+    .avator-con {
+        .user-name {
+            color: rgba(0, 0, 0, 0.65);
+            margin-right: 10px;
+        }
+        .refresh-current-page-btn {
+            position: relative;
+            top: 6px;
+            i.vcuicon {
+                cursor: pointer;
+            }
+        }
+    }
+    .content-wrapper {
+        position: relative;
+        padding: 15px;
+        overflow: auto;
+        height: 94%;
+        flex: auto;
+    }
+    .main-user-name {
+        display: inline-block;
+        max-width: 80px;
+        word-break: keep-all;
+        white-space: nowrap;
+        vertical-align: middle;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: right;
+    }
+}
+
+/*fade-transform*/
+
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    transition: all .5s;
+}
+
+.fade-transform-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
