@@ -65,6 +65,12 @@ export default {
         });
       });
     },
+  },
+  activated() {
+    this.initTinymce()
+  },
+  deactivated() {
+    tinymce.get('tinymceEditer').destroy();
   }
 };
 </script>
