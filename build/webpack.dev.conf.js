@@ -72,7 +72,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             from: path.resolve(__dirname, '../static'),
             to: config.dev.assetsSubDirectory,
             ignore: ['.*']
-        }])
+        }]),
+        // copy tinymce assets
+        new CopyWebpackPlugin([{
+            from: 'src/components/tinymce',
+            to: config.build.assetsSubDirectory,
+        }], {
+            ignore: ['.*']
+        })
     ],
     devServer: {
         host: getIPAdress()
