@@ -1,32 +1,29 @@
 <template>
-  <v-scrollbar :style="{height:menuHeight + 'px'}" :zIndex=10000>
-    <v-menu theme="dark" mode="inline" :selectedKeys="[$route.name]" :openKeys="openKeys" @click="handleClickMenu" @openChange="onOpenChange">
+  <v-scrollbar
+    :style="{height:menuHeight + 'px'}"
+    :zIndex=10000
+  >
+    <v-menu
+      theme="dark"
+      mode="inline"
+      :selectedKeys="[$route.name]"
+      :openKeys="openKeys"
+      @click="handleClickMenu"
+      @openChange="onOpenChange"
+    >
       <template v-for="item in menuList">
-        <v-menu-item :key="item.children[0].name" v-if="item.children.length <= 1 && item.children[0].name.indexOf('_index') >= 0">
+        <v-menu-item
+          :key="item.children[0].name"
+          v-if="item.children.length <= 1 && item.children[0].name.indexOf('_index') >= 0"
+        >
           <v-icon :type="item.children[0].icon || item.icon"></v-icon>
           <span>{{ itemTitle(item.children[0]) }}</span>
         </v-menu-item>
-
-        <v-sub-menu v-else :key="item.name">
-          <span slot="title">
-            <v-icon :type="item.icon"></v-icon><span>{{ itemTitle(item) }}</span>
-          </span>
-          <template v-for="child in item.children">
-            <template v-if="child.children">
-              <v-sub-menu :key="child.name">
-                <span slot="title">
-                  <v-icon :type="child.icon"></v-icon><span>{{ itemTitle(child) }}</span>
-                </span>
-                <template v-for="subChild in child.children">
-                  <v-menu-item :key="subChild.name">{{ itemTitle(subChild) }}</v-menu-item>
-                </template>
-              </v-sub-menu>
-            </template>
-            <template v-else>
-              <v-menu-item :key="child.name">{{ itemTitle(child) }}</v-menu-item>
-            </template>
-          </template>
-        </v-sub-menu>
+        <sub-menu
+          v-else
+          :menuInfo="item"
+          :key="item.name"
+        />
       </template>
     </v-menu>
   </v-scrollbar>
@@ -34,7 +31,11 @@
 
 <script>
 import util from '@/libs/util'
+import SubMenu from './SubMenu'
 export default {
+  components: {
+    'sub-menu': SubMenu,
+  },
   props: {
     menuList: {
       type: Array,
@@ -87,6 +88,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-</style>
