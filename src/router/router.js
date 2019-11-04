@@ -164,6 +164,26 @@ export const menuRouter = [{
         }]
     },
     {
+        path: '/customer-form',
+        show: true,
+        icon: 'edit-square',
+        meta: {
+            title: '自定义表单'
+        },
+        name: 'customerform',
+        component: Main,
+        children: [{
+            show: true,
+            path: 'index',
+            meta: {
+                title: '自定义表单'
+            },
+            name: 'customerform_index',
+            component: () =>
+                import ('@/views/customer-form/customer-form.vue')
+        }]
+    },
+    {
         path: '/tools-methods',
         show: true,
         icon: 'wrench',
