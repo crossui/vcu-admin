@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "area-data": "^5.0.6",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "cropperjs": "^1.2.2",
     "echarts": "^3.8.5",
     "element-dataset": "^2.2.6",
