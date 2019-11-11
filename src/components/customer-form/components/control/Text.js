@@ -2,11 +2,10 @@ export default (_self, h) => {
     return [
         h("VTextarea", {
             props: {
-                rows: _self.obj.maxRows || 5,
-                type: "textarea",
-                placeholder: _self.obj.placeholder || "这是一个文本域",
-                defaultValue: _self.obj.value || "",
-                maxlength: _self.obj.maxLength || 200
+                autosize: { minRows: _self.obj.minRows, maxRows: _self.obj.maxRows },
+                placeholder: _self.obj.placeholder,
+                defaultValue: _self.obj.value,
+                maxlength: _self.obj.maxLength
             },
             on: {
                 "on-change" (event) {
@@ -27,14 +26,16 @@ export let textConf = {
     config: true,
     // 控件左侧label内容
     label: '文本域',
-    placeholder: '',
-    // 是否显示行内元素
-    inlineBlock: false,
+    placeholder: '这是一个文本域',
+    // 栅格
+    gridspan: 24,
     // 最大长度
     maxLength: 200,
     // 是否必填
     require: false,
-    // 文本域行高 
+    // 自适应内容最小高度
+    minRows: 1,
+    // 自适应内容最大高度 
     maxRows: 5,
     // 绑定的值
     value: "",

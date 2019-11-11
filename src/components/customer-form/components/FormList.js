@@ -1,7 +1,8 @@
 import { inputConf } from "./control/Input";
 import { inputNumberConf } from "./control/InputNumber";
 import { selectConf } from "./control/Select";
-import { CascaderConf } from "./control/Cascader";
+import { treeselectConf } from "./control/TreeSelect";
+import { cascaderConf } from "./control/Cascader";
 import { radioConf } from "./control/Radio";
 import { checkBoxConf } from "./control/CheckBox";
 import { textConf } from "./control/Text";
@@ -14,8 +15,9 @@ import { datetimePickerConf } from './control/DateTimePicker';
 import { rangetimePickerConf } from './control/RangeTimePicker';
 import { addressConf } from './control/Address';
 import { hrConf } from "./control/Hr";
-import { uploadsConf } from './control/Uploads';
 import { switchonoffConf } from './control/Switch';
+import { uploadfilesConf } from './control/UploadFiles';
+import { uploadpicsConf } from './control/UploadPics';
 import { titleConf } from './control/Title';
 import { pConf } from './control/P';
 
@@ -54,7 +56,10 @@ const list_arr = {
         obj: addressConf
     }, {
         ele: "cascader",
-        obj: CascaderConf
+        obj: cascaderConf
+    }, {
+        ele: "treeselect",
+        obj: treeselectConf
     }],
     datetime: [{
         ele: "datepicker",
@@ -79,8 +84,11 @@ const list_arr = {
         obj: rangetimePickerConf
     }],
     upload: [{
-        ele: "uploads",
-        obj: uploadsConf
+        ele: "uploadfiles",
+        obj: uploadfilesConf
+    }, {
+        ele: "uploadpics",
+        obj: uploadpicsConf
     }],
     other: [{
         ele: "hr",

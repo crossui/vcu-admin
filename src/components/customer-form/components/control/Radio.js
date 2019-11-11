@@ -1,24 +1,20 @@
 export default (_self, h) => {
     return [
-        h("VRadioGroup", {
+        h("radios", {
             props: {
-                defaultValue: _self.obj.value || 0
+                plainOptions: _self.obj.items,
+                defaultValue: _self.obj.value,
+                optionsType: _self.obj.optionsType,
+                dataSourceUrl: _self.obj.dataSourceUrl,
+                dataSourceType: _self.obj.dataSourceType
             },
             on: {
                 'on-change' (value) {
-                    _self.obj = Object.assign(_self.obj, {
-                        value
-                    });
+                    _self.obj.value = value;
                     _self.$emit('handleChangeVal', value)
                 }
             }
-        }, _self.obj.items.map(v => {
-            return h("VRadio", {
-                props: {
-                    value: v.value
-                }
-            }, v.label)
-        }))
+        })
     ];
 };
 
@@ -31,14 +27,20 @@ export let radioConf = {
     config: true,
     // 控件左侧label内容
     label: '单选框',
-    // 是否显示行内元素
-    inlineBlock: false,
+    // 栅格
+    gridspan: 24,
     // 是否必填
     require: false,
     // 绑定的值
-    value: '',
+    value: [],
     // 选项内数据
-    items: [{ value: 1, label: "单选框1" }, { value: 2, label: "单选框2" }],
+    items: [{
+        value: "1",
+        label: "单选框1"
+    }, {
+        value: "2",
+        label: "单选框2"
+    }],
     // 表单name
     name: '',
     // 验证错误提示信息
@@ -52,7 +54,9 @@ export let radioConf = {
     // 是否被渲染
     visibility: true,
     // 数据(自定义/来源)
-    optionsType: 0,
-    // 数据源Id
-    dataSourceId: ''
+    optionsType: "1",
+    // 远程来源数据地址
+    dataSourceUrl: '',
+    // 远程来源数据请求方式
+    dataSourceType: 'GET'
 }

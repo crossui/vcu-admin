@@ -1,6 +1,6 @@
 <template>
   <div class="customer-form">
-    <customerForm :resultLists="resultLists"/>
+    <customerForm :resultLists="resultLists" @backResultJson="backResultJson"/>
     <div class="margin-top-20">
       <v-card title="Result JSON">
         <div slot="extra">
@@ -39,6 +39,10 @@ export default {
   mounted() {},
   watch: {},
   methods: {
+    backResultJson(json) {
+      this.showRes = json;
+      //localStorage.setItem('template_form', JSON.stringify(json));
+    },
     handlePreview() {}
   }
 };

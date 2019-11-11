@@ -39,11 +39,11 @@ export let inputNumberConf = {
     config: true,
     // 控件左侧label内容
     label: '数字框',
-    // 是否显示行内元素
-    inlineBlock: false,
+    // 栅格
+    gridspan: 24,
     // 是否必填
     require: false,
-    value: 1,
+    value: null,
     // 表单name
     name: '',
     // 验证错误提示信息

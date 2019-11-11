@@ -1,6 +1,6 @@
 export default (_self, h) => {
     return [
-        h('uploadCustom', {
+        h('uploadPics', {
             props: {
                 multiple: _self.obj.multiple || false,
                 type: 'drag', //支持拖拽
@@ -21,9 +21,9 @@ export default (_self, h) => {
 }
 
 
-export const uploadsConf = {
+export const uploadpicsConf = {
     // 对应数据库内类型
-    type: 'uploads',
+    type: 'uploadpics',
     // 是否可配置
     config: true,
     // 上传地址
@@ -31,13 +31,13 @@ export const uploadsConf = {
     // 是否必填
     require: false,
     // 控件左侧label内容
-    label: '上传控件',
+    label: '上传图片',
     // 上传文件最大限制
     maxSize: 2048,
     // 绑定的值
     value: [],
     //配置支持的文件类型
-    fileFormatLists: ['jpg', 'jpeg', 'png', 'gif', 'txt', 'doc', 'xls', 'ppt', 'docx', 'xlsx', 'pptx', 'pdf', 'zip', 'rar', '7z', 'mp3', 'mp4', 'flv', 'av1', 'wmv', 'rm', 'mpg', 'mpeg'],
+    fileFormatLists: ['jpg', 'jpeg', 'png', 'gif'],
     //支持的文件类型
     fileFormat: ['jpg', 'jpeg', 'png'],
     // 表单name
@@ -45,5 +45,7 @@ export const uploadsConf = {
     // 验证错误提示信息
     ruleError: '请上传图片',
     // 是否被渲染
-    visibility: true
+    visibility: true,
+    // 栅格
+    gridspan: 24,
 }

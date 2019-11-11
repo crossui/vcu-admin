@@ -60,8 +60,8 @@ export let addressConf = {
     // 控件左侧label内容
     label: '详细地址',
     placeholder: '请输入详细地址',
-    // 是否显示行内元素
-    inlineBlock: false,
+    // 栅格
+    gridspan: 24,
     // 是否必填
     require: false,
     // 表单name
@@ -78,6 +78,6 @@ export let addressConf = {
     relation_value: '',
     // 是否被渲染
     visibility: true,
-    // 显示四级城市数据
+    // 显示城市数据层级
     addressShowLevel: "3"
 }

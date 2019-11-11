@@ -4,6 +4,7 @@ import inputnumber from './control/InputNumber';
 import checkbox from './control/CheckBox';
 import radio from './control/Radio';
 import select from './control/Select';
+import treeselect from './control/TreeSelect';
 import cascader from './control/Cascader';
 import text from './control/Text';
 import datepicker from './control/DatePicker';
@@ -15,19 +16,26 @@ import datetimepicker from './control/DateTimePicker';
 import rangetimepicker from './control/RangeTimePicker';
 import address from './control/Address';
 import hr from './control/Hr';
-import uploads from './control/Uploads';
 import switchonoff from './control/Switch';
+import uploadfiles from './control/UploadFiles';
+import uploadpics from './control/UploadPics';
 import title from './control/Title';
 import p from './control/P';
 
 import trigger from './config/trigger';
-//import uploadCustom from "./components/Uploads/upload";
+//
+import checkboxs from './components/CheckBox/checkboxs';
+import radios from './components/Radio/radios';
+import selects from './components/Select/selects';
+import uploadFiles from "./components/Uploads/uploadFiles";
+import uploadPics from "./components/Uploads/uploadPics";
 
 const form_item = {
     hr,
     input,
     inputnumber,
     select,
+    treeselect,
     cascader,
     radio,
     checkbox,
@@ -39,17 +47,28 @@ const form_item = {
     datetimepicker,
     rangetimepicker,
     text,
-    uploads,
+    uploadfiles,
+    uploadpics,
     switchonoff,
     address,
     title,
-    p
+    p,
+    //
+    checkboxs,
+    radios,
+    selects,
+    uploadFiles,
+    uploadPics
 };
 
 export default {
     name: 'renders',
     components: {
-        //uploadCustom
+        uploadFiles,
+        uploadPics,
+        checkboxs,
+        radios,
+        selects
     },
     render(h) {
         // 获取当前控件渲染
@@ -69,7 +88,7 @@ export default {
             let VFormItem = {
                 class: {
                     'items': true,
-                    'sortable-items-required': validate
+                    'vcu-form-item-required': validate
                 },
                 props: {
                     label: (this.obj.label || this.ele) + '：',

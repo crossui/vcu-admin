@@ -14,5 +14,7 @@ export const hrConf = {
     config: true,
     marginTop: 0,
     marginBottom: 24,
-    visibility: true
+    visibility: true,
+    // 栅格
+    gridspan: 24
 }

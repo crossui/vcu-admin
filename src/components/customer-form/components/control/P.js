@@ -20,5 +20,7 @@ export const pConf = {
     marginTop: 0,
     marginBottom: 24,
     // 是否被渲染
-    visibility: true
+    visibility: true,
+    // 栅格
+    gridspan: 24
 }

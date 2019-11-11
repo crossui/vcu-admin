@@ -30,8 +30,8 @@ export let datePickerConf = {
     // 控件左侧label内容
     label: '日期',
     placeholder: '请选择日期',
-    // 是否显示行内元素
-    inlineBlock: false,
+    // 栅格
+    gridspan: 24,
     // 是否必填
     require: false,
     // 表单name

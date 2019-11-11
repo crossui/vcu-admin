@@ -30,8 +30,8 @@ export let timePickerConf = {
     // 控件左侧label内容
     label: '时间',
     placeholder: '请选择时间',
-    // 是否显示行内元素
-    inlineBlock: false,
+    // 栅格
+    gridspan: 24,
     // 是否必填
     require: false,
     // 表单name

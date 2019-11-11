@@ -24,8 +24,8 @@ export let switchonoffConf = {
     config: true,
     // 控件左侧label内容
     label: '开关',
-    // 是否显示行内元素
-    inlineBlock: false,
+    // 栅格
+    gridspan: 24,
     value: false,
     // 表单name
     name: '',
