@@ -28,6 +28,7 @@ import checkboxs from './components/CheckBox/checkboxs';
 import radios from './components/Radio/radios';
 import selects from './components/Select/selects';
 import cascaders from './components/Cascader/cascaders';
+import treeselects from './components/TreeSelect/treeselects';
 import uploadFiles from "./components/Uploads/uploadFiles";
 import uploadPics from "./components/Uploads/uploadPics";
 
@@ -60,7 +61,8 @@ const form_item = {
     selects,
     cascaders,
     uploadFiles,
-    uploadPics
+    uploadPics,
+    treeselects
 };
 
 export default {
@@ -71,7 +73,8 @@ export default {
         checkboxs,
         radios,
         selects,
-        cascaders
+        cascaders,
+        treeselects
     },
     render(h) {
         // 获取当前控件渲染

@@ -54,3 +54,32 @@ Mock.mock('/api/cascaders', (req, res) => {
         ]
     }
 })
+
+
+//treeselects
+Mock.mock('/api/treeselects', (req, res) => {
+    return {
+        data: [{
+                key: "1",
+                value: "1",
+                label: "自定义1",
+                children: [{
+                        key: "11",
+                        value: "11",
+                        label: "自定义11"
+                    },
+                    {
+                        key: "12",
+                        value: "12",
+                        label: "自定义12"
+                    }
+                ]
+            },
+            {
+                key: "2",
+                value: "2",
+                label: "自定义2"
+            }
+        ]
+    }
+})

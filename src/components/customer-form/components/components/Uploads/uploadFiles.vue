@@ -1,20 +1,19 @@
 <template>
   <div>
     <v-upload-dragger
-      :name="name"
+      :name="uploadAdminName"
       :multiple="true"
       :action="action"
       listType="picture"
       :defaultFileList="defaultList"
+      :accept="accept"
       @change="handleChange"
     >
       <p class="vcu-upload-drag-icon">
         <v-icon type="cloud-upload"></v-icon>
       </p>
       <p class="vcu-upload-text">单击或拖动文件到此区域以上传</p>
-      <p
-        class="vcu-upload-hint"
-      >支持单次或批量上传。</p>
+      <p class="vcu-upload-hint">支持单次或批量上传。</p>
     </v-upload-dragger>
   </div>
 </template>
@@ -23,16 +22,21 @@ export default {
   name: "uploadFiles",
   data() {
     return {
-      
+      accept: ''
     };
   },
+  watch:{
+    fileFormat(val){
+      this.accept = val.join(",")
+    }
+  },
   methods: {
-    handleChange(info){
-      this.$emit('handleUploadsValue', info);
+    handleChange({file, fileList}){
+      this.$emit('handleUploadsValue', fileList);
     }
   },
   mounted() {
-
+    this.accept = this.fileFormat.join(",")
   },
   props: {
     defaultList: {
@@ -47,9 +51,13 @@ export default {
       type: String,
       default: ""
     },
-    name: {
+    uploadAdminName: {
       type: String,
       default: "file"
+    },
+    fileFormat: {
+      type: Array,
+      default: []
     }
   }
 };

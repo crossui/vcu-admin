@@ -1,20 +1,22 @@
 export default (_self, h) => {
     return [
         h(
-            "VTreeSelect", {
+            "treeselects", {
                 props: {
-                    placeholder: _self.obj.placeholder || "请选择",
+                    modeType: _self.obj.modeType,
+                    placeholder: _self.obj.placeholder,
+                    plainOptions: _self.obj.items,
                     defaultValue: _self.obj.value,
-                    dropdownStyle: { maxHeight: '400px', overflow: 'auto' },
-                    allowClear: 　true,
-                    multiple: _self.obj.multiple,
-                    treeData: _self.obj.items
+                    optionsType: _self.obj.optionsType,
+                    dataSourceUrl: _self.obj.dataSourceUrl,
+                    dataSourceType: _self.obj.dataSourceType
                 },
                 style: {
                     width: '100%'
                 },
                 on: {
-                    'on-change' (value) {
+                    handleChangeValue(value) {
+                        console.info(value)
                         _self.obj.value = value;
                         _self.$emit('handleChangeVal', value)
                     }
@@ -33,42 +35,36 @@ export let treeselectConf = {
     config: true,
     // 控件左侧label内容
     label: '树型下拉框',
-    placeholder: '',
+    placeholder: '树型下拉框',
     // 栅格
     gridspan: 24,
     // 是否必填
     require: false,
     // 选项内数据
     items: [{
-        label: 'Node1',
-        value: '0-0',
-        key: '0-0',
-        children: [{
-            label: 'Child Node1',
-            value: '0-0-0',
-            key: '0-0-0',
-        }],
-    }, {
-        label: 'Node2',
-        value: '0-1',
-        key: '0-1',
-        children: [{
-            label: 'Child Node3',
-            value: '0-1-0',
-            key: '0-1-0',
-            disabled: true,
-        }, {
-            label: 'Child Node4',
-            value: '0-1-1',
-            key: '0-1-1',
-        }, {
-            label: 'Child Node5',
-            value: '0-1-2',
-            key: '0-1-2',
-        }],
-    }],
+            key: "1",
+            value: "1",
+            label: "选项1",
+            children: [{
+                    key: "11",
+                    value: "11",
+                    label: "选项11"
+                },
+                {
+                    key: "12",
+                    value: "12",
+                    label: "选项12"
+                }
+            ]
+        },
+        {
+            key: "2",
+            value: "2",
+            label: "选项2"
+        }
+    ],
     // 绑定的值
-    value: '',
+    value: "",
     // 表单name
     name: '',
     // 验证错误提示信息
@@ -82,9 +78,11 @@ export let treeselectConf = {
     // 是否被渲染
     visibility: true,
     // 数据(自定义/来源)
-    optionsType: 0,
-    // 数据源Id
-    dataSourceId: '',
-    // 支持多选
-    multiple: false
+    optionsType: "1",
+    // 远程来源数据地址
+    dataSourceUrl: '',
+    // 远程来源数据请求方式
+    dataSourceType: 'GET',
+    // 模式
+    modeType: 'default' //'default' | 'multiple'
 }

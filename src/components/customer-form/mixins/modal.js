@@ -7,7 +7,7 @@ let modalMixin = {
             modalFormData: {
                 loading: false
             },
-            optionsType: ["select", "radio", "checkbox", "cascader"],
+            optionsType: ["select", "radio", "checkbox", "cascader", "treeselect"],
             optionsTypeOne: ["select", "radio", "checkbox"],
         };
     },

@@ -4,6 +4,7 @@
     :defaultValue="defaultValue"
     @change="onChange"
     :placeholder="placeholder"
+    :allowClear="true"
   ></v-cascader>
 </template>
 <script>
@@ -50,6 +51,9 @@ export default {
     }
   },
   watch: {
+    plainOptions(val){
+      this.optionLists = val;
+    },
     optionsType(val) {
       if (val == "2") this.getDataSource();
     },

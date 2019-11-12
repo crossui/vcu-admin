@@ -22,6 +22,8 @@ export default (_self, h) => {
 
 
 export const uploadfilesConf = {
+    // 对应唯一的控件
+    uid: '',
     // 对应数据库内类型
     type: 'uploadfiles',
     // 是否可配置
@@ -43,9 +45,11 @@ export const uploadfilesConf = {
     // 表单name
     name: '',
     // 验证错误提示信息
-    ruleError: '请上传图片',
+    ruleError: '请上传文件',
     // 是否被渲染
     visibility: true,
     // 栅格
     gridspan: 24,
+    // 发到后台的文件参数名
+    uploadAdminName: "file"
 }

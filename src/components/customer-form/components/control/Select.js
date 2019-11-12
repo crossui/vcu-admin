@@ -47,7 +47,7 @@ export let selectConf = {
         label: "下拉框2"
     }],
     // 绑定的值
-    value: '',
+    value: "",
     // 表单name
     name: '',
     // 验证错误提示信息

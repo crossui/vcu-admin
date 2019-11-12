@@ -5,6 +5,7 @@
     :defaultValue="defaultValue"
     @change="onChange"
     :placeholder="placeholder"
+    :allowClear="true"
   ></v-select>
 </template>
 <script>
@@ -31,8 +32,8 @@ export default {
       }
     },
     defaultValue: {
-      type: [String, Number, Array],
-      default: []
+      type: [String, Array],
+      default: ""
     },
     optionsType: {
       type: String,
@@ -55,6 +56,9 @@ export default {
     }
   },
   watch: {
+    plainOptions(val){
+      this.optionLists = val;
+    },
     optionsType(val) {
       if (val == "2") this.getDataSource();
     },

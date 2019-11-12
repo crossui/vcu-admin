@@ -42,6 +42,9 @@ export default {
     }
   },
   watch: {
+    plainOptions(val){
+      this.optionLists = val;
+    },
     optionsType(val) {
       if (val == "2") this.getDataSource();
     },

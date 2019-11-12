@@ -74,7 +74,6 @@ let columnMixin = {
         },
         //新增列（级联）
         handleAddColumn() {
-            //const { dataSource } = this;
             let _value = (this.modalFormData.items.length + 1).toString();
             const newData = {
                 key: _value,
