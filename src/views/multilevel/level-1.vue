@@ -22,16 +22,40 @@
 
 <script>
 import editableCell from "@/components/EditableCell";
-const recursionColumn = (dataSource, key) => {
+//递归查找对应的列
+const recursionQueryColumn = (dataSource, key) => {
   let target = dataSource.find(item => item.key === key);
   if (target == undefined) {
     dataSource.forEach((element, index) => {
       if (element.children != undefined) {
-        target = recursionColumn(element.children, key);
+        target = recursionQueryColumn(element.children, key);
       }
     });
   }
   return target;
+};
+//递归删除对应的列
+const recursionDeleteColumn = (dataSource, key) => {
+  dataSource.forEach((item, index) => {
+    if (item.key === key) {
+      dataSource.splice(index, 1);
+    } else if (item.children) {
+      return recursionDeleteColumn(item.children, key);
+    }
+  });
+  return dataSource;
+};
+//清空列中无子节点的Children
+const clearColumnChildren = dataSource => {
+  dataSource.forEach((item, index) => {
+    if (item.children == undefined) return;
+    if (item.children.length == 0) {
+      delete item.children;
+    } else {
+      return clearColumnChildren(item.children);
+    }
+  });
+  return dataSource;
 };
 export default {
   name: "level-1",
@@ -43,7 +67,7 @@ export default {
       dataSource: [
         {
           key: "1",
-          value: "0",
+          value: "1",
           label: "选项1",
           children: [
             {
@@ -82,12 +106,19 @@ export default {
   methods: {
     //选项Label改变后更新列数据（级联）
     onChangeColumnName(key, value) {
-      console.info(key, value);
+      const dataSource = [...this.dataSource];
+      const target = recursionQueryColumn(dataSource, key);
+      if (target) {
+        target.label = value;
+        this.dataSource = dataSource;
+      }
     },
     //删除列（级联）
     onDeleteColumn(key) {
-      const dataSource = [...this.dataSource];
-      this.dataSource = dataSource.filter(item => item.key !== key);
+      let dataSource = [...this.dataSource];
+      dataSource = recursionDeleteColumn(dataSource, key);
+      dataSource = clearColumnChildren(dataSource);
+      this.dataSource = dataSource;
     },
     //新增列（级联）
     handleAddColumn() {
@@ -103,7 +134,7 @@ export default {
     //新增子列（级联）
     handleAddChildrenColumn(key) {
       const dataSource = [...this.dataSource];
-      const target = recursionColumn(dataSource, key);
+      const target = recursionQueryColumn(dataSource, key);
       if (target) {
         if (target.children == undefined) target.children = [];
         let _value = (target.children.length + 1).toString();

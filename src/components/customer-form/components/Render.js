@@ -27,6 +27,7 @@ import trigger from './config/trigger';
 import checkboxs from './components/CheckBox/checkboxs';
 import radios from './components/Radio/radios';
 import selects from './components/Select/selects';
+import cascaders from './components/Cascader/cascaders';
 import uploadFiles from "./components/Uploads/uploadFiles";
 import uploadPics from "./components/Uploads/uploadPics";
 
@@ -57,6 +58,7 @@ const form_item = {
     checkboxs,
     radios,
     selects,
+    cascaders,
     uploadFiles,
     uploadPics
 };
@@ -68,7 +70,8 @@ export default {
         uploadPics,
         checkboxs,
         radios,
-        selects
+        selects,
+        cascaders
     },
     render(h) {
         // 获取当前控件渲染

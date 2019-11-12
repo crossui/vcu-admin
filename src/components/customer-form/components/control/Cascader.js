@@ -1,19 +1,21 @@
 export default (_self, h) => {
     return [
-        h("VCascader", {
+        h("cascaders", {
             props: {
                 placeholder: _self.obj.placeholder,
-                options: _self.obj.items, //initData(_self.obj.childrenitems),
+                plainOptions: _self.obj.items,
                 defaultValue: _self.obj.value,
-                allowClear: false
+                optionsType: _self.obj.optionsType,
+                dataSourceUrl: _self.obj.dataSourceUrl,
+                dataSourceType: _self.obj.dataSourceType
             },
             style: {
                 width: '100%'
             },
             on: {
-                "on-change": function(val, selectedData) {
-                    _self.obj.value = val;
-                    _self.$emit('handleChangeVal', val)
+                handleChangeValue(value) {
+                    _self.obj.value = value;
+                    _self.$emit('handleChangeVal', value)
                 }
             }
         })
@@ -37,28 +39,27 @@ export let cascaderConf = {
     require: false,
     // 选项内数据
     items: [{
-        value: '1',
-        label: '选项1',
-        children: [{
-            value: '1-1',
-            label: '选项1-1',
+            key: "1",
+            value: "1",
+            label: "选项1",
             children: [{
-                value: '1-1-1',
-                label: '选项1-1-1',
-            }],
-        }],
-    }, {
-        value: '2',
-        label: '选项2',
-        children: [{
-            value: '2-1',
-            label: '选项2-1',
-            children: [{
-                value: '2-1-1',
-                label: '选项2-1-1',
-            }],
-        }],
-    }],
+                    key: "11",
+                    value: "11",
+                    label: "选项11"
+                },
+                {
+                    key: "12",
+                    value: "12",
+                    label: "选项12"
+                }
+            ]
+        },
+        {
+            key: "2",
+            value: "2",
+            label: "选项2"
+        }
+    ],
     value: [],
     // 表单name
     name: '',

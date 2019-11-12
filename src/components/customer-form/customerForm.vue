@@ -147,7 +147,7 @@
             <v-radio-button value="multiple">多选</v-radio-button>
           </v-radio-group>
         </v-form-item>
-        
+
         <v-form-item label="城市数据层级:" v-if="typeof modalFormData.addressShowLevel != 'undefined'">
           <v-input-number v-model="modalFormData.addressShowLevel" :min="1" :max="3" />
         </v-form-item>
@@ -155,7 +155,10 @@
         <v-form-item label="选项设置:" v-if="Array.indexOf(optionsType, modalFormData.type)>-1">
           <v-tabs :activeKey="modalFormData.optionsType" @change="handleOptionTabs">
             <v-tab-pane tab="静态数据" key="1">
-              <div class="customer-options-item-list">
+              <div
+                class="customer-options-item-list"
+                v-if="Array.indexOf(optionsTypeOne,modalFormData.type)>-1"
+              >
                 <template v-for="(item,index) in modalFormData.items">
                   <div class="clearfix margin-bottom-5" style="line-height: 24px;">
                     <v-input
@@ -170,6 +173,28 @@
                     </v-button-group>
                   </div>
                 </template>
+              </div>
+              <div v-else>
+                <v-button class="editable-add-btn" @click="handleAddColumn">添加列</v-button>
+                <v-table bordered :dataSource="modalFormData.items" :columns="columns">
+                  <template slot="label" slot-scope="label, record">
+                    <editable-cell
+                      :text="label"
+                      :defaultKey="record.key"
+                      @change="onChangeColumnName"
+                    />
+                  </template>
+                  <template slot="operation" slot-scope="text, record">
+                    <a href="javascript:;" @click="handleAddChildrenColumn(record.key)">添加</a>
+                    <v-popconfirm
+                      v-if="modalFormData.items.length"
+                      title="确定要删除?"
+                      @confirm="() => onDeleteColumn(record.key)"
+                    >
+                      <a href="javascript:;">删除</a>
+                    </v-popconfirm>
+                  </template>
+                </v-table>
               </div>
             </v-tab-pane>
             <v-tab-pane tab="远程数据" key="2">
@@ -208,28 +233,22 @@
 import draggable from "vuedraggable";
 import form_list from "./components/FormList";
 import Renders from "./components/Render";
+import columnMixin from "./mixins/column";
+import modalMixin from "./mixins/modal";
 
 export default {
   components: {
     draggable,
     Renders
   },
+  mixins: [columnMixin,modalMixin],
   data() {
     return {
-      showModal: false,
-      // 深拷贝对象，防止默认空对象被更改
-      modalFormData: {
-        loading: false
-      },
-      //存储当前旧选项
-      oldModelFormDataItems: null,
       formConfig: {
         labelPosition: "left",
         labelWidth: 100
       },
       formData: {},
-      oldOptionsIetms: [],
-      optionsType: ["select", "radio", "checkbox", "cascader"],
       resultOptions: {
         animation: 150,
         ghostClass: "ghost",
@@ -259,7 +278,6 @@ export default {
         // 禁止拖动排序
         sort: false
       },
-      dataFormatModal: false
     };
   },
   props: {
@@ -270,8 +288,6 @@ export default {
       }
     }
   },
-  mounted() {},
-  computed: {},
   watch: {
     resultLists(val) {
       val.forEach((item, index) => {
@@ -289,10 +305,6 @@ export default {
     }
   },
   methods: {
-    async getDataSource(itme, index) {
-      let rdata = await this.request(item.obj.dataSourceUrl);
-      console.info(rdata);
-    },
     //发布
     handleResultSubmit() {
       this.$emit("backResultJson", this.resultLists);
@@ -311,14 +323,7 @@ export default {
 
       // 设置被配置控件的index，便于完成配置找到相应对象赋值
       this.modalFormData.listIndex = index;
-      /* if (this.modalFormData.optionsType == "2") {
-        ////////////////////BUG
-        if (this.modalFormData.items == undefined) {
-          this.oldChildrenOptionsIetms = this.modalFormData.childrenitems;
-        } else {
-          this.oldOptionsIetms = this.modalFormData.items;
-        }
-      } */
+      
       // Vue 不能检测到对象属性的添加或删除
       this.modalFormData = Object.assign({}, this.modalFormData);
       this.showModal = true;
@@ -335,71 +340,6 @@ export default {
     // 控件回填数据
     handleChangeVal(val, element) {
       this.$set(this.formData, element.obj.name, val);
-    },
-    //选项设置 删除
-    optionsDel(i) {
-      let _content = "";
-      switch (this.modalFormData.type) {
-        case "radio":
-          if (this.modalFormData.items.length == 2) {
-            _content = "单选框最少两个选项";
-          }
-          break;
-        case "select":
-          if (this.modalFormData.items.length == 1) {
-            _content = "下拉框最少1个选项";
-          }
-          break;
-        case "checkbox":
-          if (this.modalFormData.items.length == 1) {
-            _content = "多选择框最少1个选项";
-          }
-          break;
-      }
-      if (_content != "") {
-        this.$error({
-          title: "提示",
-          content: _content
-        });
-        return;
-      }
-      this.modalFormData.items.splice(i, 1);
-      this.resetOptionsItems(this.modalFormData.items);
-    },
-    //选项设置 添加
-    optionsAdd(i) {
-      this.modalFormData.items.splice(i + 1, 0, {
-        label: "单选框",
-        value: "0"
-      });
-      this.resetOptionsItems(this.modalFormData.items);
-    },
-    //重置选项value
-    resetOptionsItems(items) {
-      items.forEach((item, index) => {
-        item.value = index + 1;
-      });
-    },
-    //选项设置 切换方式
-    handleOptionTabs(key) {
-      this.modalFormData.optionsType = key;
-    },
-    // modal点击确定执行事件
-    handleOk() {
-      let index = this.modalFormData.listIndex;
-      this.resultLists[index].obj = Object.assign(
-        {},
-        this.resultLists[index].obj,
-        this.modalFormData
-      );
-      this.handleCancel();
-    },
-    // modal点击取消执行事件，清空当前modal内容
-    handleCancel() {
-      this.showModal = false;
-      this.modalFormData = {
-        loading: false
-      };
     }
   }
 };
