@@ -2,12 +2,11 @@ export default (_self, h) => {
     return [
         h('uploadFiles', {
             props: {
-                multiple: _self.obj.multiple || false,
-                type: 'drag', //支持拖拽
-                action: _self.obj.uploadAction || "/imageupload",
-                'max-size': _self.obj.maxSize || 2048,
+                uploadAction: _self.obj.uploadAction,
+                maxSize: _self.obj.maxSize,
                 defaultList: _self.obj.value,
                 fileFormat: _self.obj.fileFormat,
+                customFileFormat: _self.obj.customFileFormat,
                 name: 'photo'
             },
             on: {
@@ -38,10 +37,10 @@ export const uploadfilesConf = {
     maxSize: 2048,
     // 绑定的值
     value: [],
-    //配置支持的文件类型
-    fileFormatLists: ['jpg', 'jpeg', 'png', 'gif', 'txt', 'doc', 'xls', 'ppt', 'docx', 'xlsx', 'pptx', 'pdf', 'zip', 'rar', '7z', 'mp3', 'mp4', 'flv', 'av1', 'wmv', 'rm', 'mpg', 'mpeg'],
     //支持的文件类型
-    fileFormat: ['jpg', 'jpeg', 'png'],
+    fileFormat: ['.jpg', '.jpeg', '.png', '.gif'],
+    //自定义文件类型
+    customFileFormat: '',
     // 表单name
     name: '',
     // 验证错误提示信息

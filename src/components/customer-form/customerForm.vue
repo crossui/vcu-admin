@@ -216,6 +216,32 @@
             </v-tab-pane>
           </v-tabs>
         </v-form-item>
+
+        <v-form-item label="上传地址:" v-if="typeof modalFormData.uploadAction != 'undefined'">
+          <v-input v-model="modalFormData.uploadAction" />
+        </v-form-item>
+        <v-form-item label="后台参数:" v-if="typeof modalFormData.uploadAdminName != 'undefined'">
+          <v-input v-model="modalFormData.uploadAdminName" />
+        </v-form-item>
+        <v-form-item label="上传文件大小:" v-if="typeof modalFormData.maxSize != 'undefined'">
+          <v-input-number v-model="modalFormData.maxSize" :min="1" style="width:120px; margin-right:10px" /> <span>(字节)</span>
+        </v-form-item>
+        <v-form-item label="上传类型:" v-if="typeof modalFormData.fileFormatLists != 'undefined'">
+          <v-select
+            mode="multiple"
+            v-model="modalFormData.fileFormat"
+            style="width: 100%"
+            placeholder="请选择文件类型"
+          >
+            <v-select-option
+              v-for="(item) in modalFormData.fileFormatLists"
+              :key="item"
+            >{{item}}</v-select-option>
+          </v-select>
+        </v-form-item>
+        <v-form-item label="自定义类型:" v-if="typeof modalFormData.customFileFormat != 'undefined'">
+          <v-input v-model="modalFormData.customFileFormat" style="width:450px; margin-right:10px" /> <span>文件的后缀名，多个使用逗号隔开</span>
+        </v-form-item>
       </v-form>
     </v-modal>
 
@@ -235,13 +261,14 @@ import form_list from "./components/FormList";
 import Renders from "./components/Render";
 import columnMixin from "./mixins/column";
 import modalMixin from "./mixins/modal";
+import mimes from "@/libs/mime";
 
 export default {
   components: {
     draggable,
     Renders
   },
-  mixins: [columnMixin,modalMixin],
+  mixins: [columnMixin, modalMixin],
   data() {
     return {
       formConfig: {
@@ -277,7 +304,7 @@ export default {
         },
         // 禁止拖动排序
         sort: false
-      },
+      }
     };
   },
   props: {
@@ -323,7 +350,7 @@ export default {
 
       // 设置被配置控件的index，便于完成配置找到相应对象赋值
       this.modalFormData.listIndex = index;
-      
+
       // Vue 不能检测到对象属性的添加或删除
       this.modalFormData = Object.assign({}, this.modalFormData);
       this.showModal = true;

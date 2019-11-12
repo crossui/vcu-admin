@@ -3,11 +3,13 @@
     <v-upload-dragger
       :name="uploadAdminName"
       :multiple="true"
-      :action="action"
+      :action="uploadAction"
       listType="picture"
+      type="drag"
       :defaultFileList="defaultList"
-      :accept="accept"
       @change="handleChange"
+      :accept="accept"
+      :beforeUpload="beforeUpload"
     >
       <p class="vcu-upload-drag-icon">
         <v-icon type="cloud-upload"></v-icon>
@@ -18,25 +20,43 @@
   </div>
 </template>
 <script>
+import { updateLocale } from 'moment';
 export default {
   name: "uploadFiles",
   data() {
     return {
-      accept: ''
+      accept: ""
     };
   },
-  watch:{
-    fileFormat(val){
-      this.accept = val.join(",")
+  watch: {
+    fileFormat() {
+      //this.updateAccept()
+    },
+    customFileFormat() {
+      //this.updateAccept()
     }
   },
   methods: {
-    handleChange({file, fileList}){
-      this.$emit('handleUploadsValue', fileList);
+    beforeUpload(file){
+      console.info(file)
+    },
+    handleChange({ file, fileList }) {
+      this.$emit("handleUploadsValue", fileList);
+    },
+    updateAccept(){
+      let _accept = ''
+      if(this.fileFormat.length){
+        _accept = this.fileFormat.join(",");
+      }
+      if(this.customFileFormat!=''){
+        if(this.fileFormat.length != 0) _accept += ','
+        _accept += this.customFileFormat
+      }
+      this.accept = _accept
     }
   },
   mounted() {
-    this.accept = this.fileFormat.join(",")
+    //this.updateAccept()
   },
   props: {
     defaultList: {
@@ -46,7 +66,7 @@ export default {
         return [];
       }
     },
-    action: {
+    uploadAction: {
       //提交地址
       type: String,
       default: ""
@@ -58,6 +78,14 @@ export default {
     fileFormat: {
       type: Array,
       default: []
+    },
+    customFileFormat: {
+      type: String,
+      default: ""
+    },
+    maxSize: {
+      type: Number,
+      default: 0
     }
   }
 };

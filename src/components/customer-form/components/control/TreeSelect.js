@@ -16,7 +16,6 @@ export default (_self, h) => {
                 },
                 on: {
                     handleChangeValue(value) {
-                        console.info(value)
                         _self.obj.value = value;
                         _self.$emit('handleChangeVal', value)
                     }
