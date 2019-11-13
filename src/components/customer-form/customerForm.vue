@@ -226,17 +226,18 @@
         <v-form-item label="上传文件大小:" v-if="typeof modalFormData.maxSize != 'undefined'">
           <v-input-number v-model="modalFormData.maxSize" :min="1" style="width:120px; margin-right:10px" /> <span>(字节)</span>
         </v-form-item>
-        <v-form-item label="上传类型:" v-if="typeof modalFormData.fileFormatLists != 'undefined'">
+        <v-form-item label="上传类型:" v-if="typeof modalFormData.fileFormat != 'undefined'">
           <v-select
             mode="multiple"
             v-model="modalFormData.fileFormat"
             style="width: 100%"
             placeholder="请选择文件类型"
+            :filterOption="filterOptionMimes"
           >
             <v-select-option
-              v-for="(item) in modalFormData.fileFormatLists"
-              :key="item"
-            >{{item}}</v-select-option>
+              v-for="(item) in modalMimes"
+              :key="item.label"
+            >{{item.label}}</v-select-option>
           </v-select>
         </v-form-item>
         <v-form-item label="自定义类型:" v-if="typeof modalFormData.customFileFormat != 'undefined'">
@@ -261,7 +262,6 @@ import form_list from "./components/FormList";
 import Renders from "./components/Render";
 import columnMixin from "./mixins/column";
 import modalMixin from "./mixins/modal";
-import mimes from "@/libs/mime";
 
 export default {
   components: {

@@ -6,10 +6,10 @@
       :action="uploadAction"
       listType="picture"
       type="drag"
-      :defaultFileList="defaultList"
+      :fileList="fileList"
       @change="handleChange"
       :accept="accept"
-      :beforeUpload="beforeUpload"
+      
     >
       <p class="vcu-upload-drag-icon">
         <v-icon type="cloud-upload"></v-icon>
@@ -20,43 +20,54 @@
   </div>
 </template>
 <script>
-import { updateLocale } from 'moment';
+//:beforeUpload="beforeUpload"
+import mimes from "@/libs/mime";
 export default {
   name: "uploadFiles",
   data() {
     return {
-      accept: ""
+      accept: "",
+      fileList: []
     };
   },
   watch: {
     fileFormat() {
-      //this.updateAccept()
-    },
-    customFileFormat() {
-      //this.updateAccept()
+      this.updateAccept();
     }
   },
   methods: {
-    beforeUpload(file){
-      console.info(file)
+    beforeUpload(file,fileList) {
+      return true
     },
-    handleChange({ file, fileList }) {
-      this.$emit("handleUploadsValue", fileList);
+    handleChange(info) {
+      let fileList = info.fileList;
+      fileList = fileList.filter((file) => {
+        console.info(file.response)
+        if (file.response) {
+          return file.response.status === 'success';
+        }
+        return false;
+      });
+
+      this.fileList = fileList
+
+      this.$emit("handleUploadsValue", this.fileList);
     },
-    updateAccept(){
-      let _accept = ''
-      if(this.fileFormat.length){
-        _accept = this.fileFormat.join(",");
-      }
-      if(this.customFileFormat!=''){
-        if(this.fileFormat.length != 0) _accept += ','
-        _accept += this.customFileFormat
-      }
-      this.accept = _accept
+    updateAccept() {
+      let _accept = [];
+      mimes.forEach(element => {
+        this.fileFormat.forEach(item => {
+          if (element.label == item) {
+            _accept.push(element.value);
+          }
+        });
+      });
+      this.accept = _accept.join(",");
     }
   },
   mounted() {
-    //this.updateAccept()
+    this.updateAccept();
+    this.fileList = [...this.defaultList]
   },
   props: {
     defaultList: {

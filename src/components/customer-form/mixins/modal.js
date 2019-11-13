@@ -1,3 +1,5 @@
+import mimes from "@/libs/mime";
+
 let modalMixin = {
     data() {
         return {
@@ -9,9 +11,15 @@ let modalMixin = {
             },
             optionsType: ["select", "radio", "checkbox", "cascader", "treeselect"],
             optionsTypeOne: ["select", "radio", "checkbox"],
+            modalMimes: [...mimes]
         };
     },
+    mounted() {},
     methods: {
+        //筛选上传文件类型
+        filterOptionMimes(input, option) {
+            return option.componentOptions.children[0].text.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        },
         //选项设置 删除
         optionsDel(i) {
             let _content = "";
