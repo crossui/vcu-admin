@@ -1,15 +1,14 @@
 <template>
-  <div>
+  <div class="clearfix">
     <v-upload-dragger
       :name="uploadAdminName"
       :multiple="true"
       :action="uploadAction"
-      listType="picture"
-      type="drag"
       :fileList="fileList"
-      @change="handleChange"
+      listType="picture"
       :accept="accept"
-      
+      @change="handleChange"
+      :beforeUpload="beforeUpload"
     >
       <p class="vcu-upload-drag-icon">
         <v-icon type="cloud-upload"></v-icon>
@@ -20,10 +19,9 @@
   </div>
 </template>
 <script>
-//:beforeUpload="beforeUpload"
 import mimes from "@/libs/mime";
 export default {
-  name: "uploadFiles",
+  name: "uploadstyleones",
   data() {
     return {
       accept: "",
@@ -37,21 +35,35 @@ export default {
   },
   methods: {
     beforeUpload(file,fileList) {
-      return true
+      const isMaxSize = file.size <= this.maxSize
+      if(!isMaxSize){
+        this.$message.error(`文件超过限制 ${this.maxSize} 字节.`);
+      }
+      return isMaxSize
     },
     handleChange(info) {
-      let fileList = info.fileList;
+      /* let fileList = [...info.fileList];
+      console.info(fileList)
       fileList = fileList.filter((file) => {
-        console.info(file.response)
-        if (file.response) {
-          return file.response.status === 'success';
+        if (file.status && file.status == "done") {
+          return true
         }
         return false;
       });
 
       this.fileList = fileList
-
-      this.$emit("handleUploadsValue", this.fileList);
+      this.$emit("handleUploadsValue", this.fileList); */
+      
+        console.log(info.file, info.fileList);
+      const status = info.file.status;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        this.$message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === 'error') {
+        this.$message.error(`${info.file.name} file upload failed.`);
+      }
     },
     updateAccept() {
       let _accept = [];

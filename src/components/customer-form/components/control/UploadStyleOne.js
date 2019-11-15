@@ -1,13 +1,13 @@
 export default (_self, h) => {
     return [
-        h('uploadFiles', {
+        h('uploadstyleones', {
             props: {
                 uploadAction: _self.obj.uploadAction,
                 maxSize: _self.obj.maxSize,
                 defaultList: _self.obj.value,
                 fileFormat: _self.obj.fileFormat,
                 customFileFormat: _self.obj.customFileFormat,
-                name: 'photo'
+                uploadAdminName: _self.obj.uploadAdminName
             },
             on: {
                 handleUploadsValue(arr) {
@@ -20,15 +20,15 @@ export default (_self, h) => {
 }
 
 
-export const uploadfilesConf = {
+export const uploadstyleoneConf = {
     // 对应唯一的控件
     uid: '',
     // 对应数据库内类型
-    type: 'uploadfiles',
+    type: 'uploadstyleone',
     // 是否可配置
     config: true,
     // 上传地址
-    uploadAction: 'https://jsonplaceholder.typicode.com/posts/',
+    uploadAction: '//jsonplaceholder.typicode.com/posts/', //'https://www.mocky.io/v2/5cc8019d300000980a055e76', 
     // 是否必填
     require: false,
     // 控件左侧label内容

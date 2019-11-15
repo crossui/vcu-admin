@@ -17,7 +17,7 @@ import rangetimepicker from './control/RangeTimePicker';
 import address from './control/Address';
 import hr from './control/Hr';
 import switchonoff from './control/Switch';
-import uploadfiles from './control/UploadFiles';
+import uploadstyleone from './control/UploadStyleOne';
 import uploadpics from './control/UploadPics';
 import title from './control/Title';
 import p from './control/P';
@@ -29,7 +29,7 @@ import radios from './components/Radio/radios';
 import selects from './components/Select/selects';
 import cascaders from './components/Cascader/cascaders';
 import treeselects from './components/TreeSelect/treeselects';
-import uploadFiles from "./components/Uploads/uploadFiles";
+import uploadstyleones from "./components/Uploads/uploadstyleones";
 import uploadPics from "./components/Uploads/uploadPics";
 
 const form_item = {
@@ -49,7 +49,7 @@ const form_item = {
     datetimepicker,
     rangetimepicker,
     text,
-    uploadfiles,
+    uploadstyleone,
     uploadpics,
     switchonoff,
     address,
@@ -60,7 +60,7 @@ const form_item = {
     radios,
     selects,
     cascaders,
-    uploadFiles,
+    uploadstyleones,
     uploadPics,
     treeselects
 };
@@ -68,7 +68,7 @@ const form_item = {
 export default {
     name: 'renders',
     components: {
-        uploadFiles,
+        uploadstyleones,
         uploadPics,
         checkboxs,
         radios,

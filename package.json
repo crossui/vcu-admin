@@ -21,7 +21,7 @@
     "moment": "^2.22.2",
     "nprogress": "^0.2.0",
     "tinymce": "^4.9.2",
-    "vcu": "^1.1.5",
+    "vcu": "^1.1.11",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuedraggable": "^2.23.2",

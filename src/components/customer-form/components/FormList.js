@@ -16,7 +16,7 @@ import { rangetimePickerConf } from './control/RangeTimePicker';
 import { addressConf } from './control/Address';
 import { hrConf } from "./control/Hr";
 import { switchonoffConf } from './control/Switch';
-import { uploadfilesConf } from './control/UploadFiles';
+import { uploadstyleoneConf } from './control/UploadStyleOne';
 import { uploadpicsConf } from './control/UploadPics';
 import { titleConf } from './control/Title';
 import { pConf } from './control/P';
@@ -84,8 +84,8 @@ const list_arr = {
         obj: rangetimePickerConf
     }],
     upload: [{
-        ele: "uploadfiles",
-        obj: uploadfilesConf
+        ele: "uploadstyleone",
+        obj: uploadstyleoneConf
     }, {
         ele: "uploadpics",
         obj: uploadpicsConf
