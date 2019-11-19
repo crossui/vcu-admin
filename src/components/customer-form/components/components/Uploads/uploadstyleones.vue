@@ -54,7 +54,7 @@ export default {
       this.fileList = fileList
       this.$emit("handleUploadsValue", this.fileList); */
       
-        console.log(info.file, info.fileList);
+      console.log(info.file, info.fileList);
       const status = info.file.status;
       if (status !== 'uploading') {
         console.log(info.file, info.fileList);
