@@ -261,4 +261,37 @@ util.colsePage = (vm, name) => {
     }
 };
 
+
+
+/*
+//封装操作localstorage本地存储的方法
+ 
+var storage = {
+ 
+    //存储
+    set(key, value) {
+		//ios safari 无痕模式下，直接使用会报错
+		try{
+			localStorage.setItem(key, JSON.stringify(value));
+		} catch(err) {
+			//开发环境下提示 error
+			console.log('localStorage.setItem报错', err.message)
+		}
+    },
+    //取出数据
+    get(key) {
+        return JSON.parse(localStorage.getItem(key));
+    },
+    // 删除数据
+     remove(key) {
+        localStorage.removeItem(key);
+    }
+ 
+}
+ 
+// 暴露给外部访问
+export default storage;
+*/
+
+
 export default util;

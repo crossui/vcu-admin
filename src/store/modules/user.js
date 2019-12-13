@@ -3,7 +3,8 @@ import Cookies from 'js-cookie';
 const user = {
     state: {},
     mutations: {
-        logout(state, vm) {
+        logout(state) {
+            console.info('logout.....')
             Cookies.remove('user');
             Cookies.remove('password');
             localStorage.clear();

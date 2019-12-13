@@ -1,16 +1,28 @@
-import axios from 'axios'
+import axios from 'axios';
+import { message } from 'vcu';
+import { router } from '../router/index';
+import store from '../store';
 
-// 创建一个AXIOS实例 (请求不同服务器地址或超时时长等等可以创建不同的实例)
-const request = axios.create({
-    baseURL: '', //请求的域名基本地址     process.env.VUE_APP_BASE_API, // url = base url + request url
-    // withCredentials: true, // 跨域请求时发送cookies
-    timeout: 8000 // 请求超时
+//批量导入API
+const files = require.context('./modules', false, /\.js$/);
+let servieModules = {};
+files.keys().forEach(key => {
+    servieModules = Object.assign({}, servieModules, files(key).default);
 })
 
 
+// 创建一个AXIOS实例 (请求不同服务器地址或超时时长等等可以创建不同的实例)
+const requestAjax = axios.create({
+    baseURL: '', //请求的域名基本地址     process.env.VUE_APP_BASE_API, // url = base url + request url
+    // withCredentials: true, // 跨域请求时发送cookies
+    timeout: 8000 // 请求超时
+});
 // 请求拦截器
-request.interceptors.request.use(
+requestAjax.interceptors.request.use(
     config => {
+        //router.push({name: "home_index"})
+        //store.commit('logout')
+        message.loading('数据加载中..', 0);
         // 在发出请求前做点什么
         /* 
           例如：
@@ -30,7 +42,7 @@ request.interceptors.request.use(
 )
 
 // 响应拦截器
-request.interceptors.response.use(
+requestAjax.interceptors.response.use(
     /**
      *如果您想要获取诸如头或状态之类的http信息
      *请返回response=>response
@@ -42,6 +54,7 @@ request.interceptors.response.use(
      *您还可以通过HTTP状态代码判断状态
      */
     response => {
+        message.destroy()
         const res = response.data;
         // 如果自定义代码不是20000，则判断为错误。
         /* if (res.code !== 20000) {
@@ -59,6 +72,46 @@ request.interceptors.response.use(
         return Promise.reject(error)
     }
 );
+
+//请求格式/参数统一
+const Http = {};
+for (let key in servieModules) {
+    let api = servieModules[key];
+    Http[key] = async(
+        params, //请求参数  get : url;  post, put, patch : data; delete : url
+        isFormData = false, //是否是form-data请求
+        config = {} //配置参数
+    ) => {
+        let newParams = {};
+        //content-type 是否是form-data的判断
+        if (params && isFormData) {
+            newParams = new FormData();
+            for (let i in params) {
+                newParams.append(i, params[i])
+            }
+        } else {
+            newParams = params;
+        }
+        //不同请求判断
+        let response = {}; //请求返回值
+        if (api.method === 'put' || api.method === 'post' || api.method === 'patch') {
+            try {
+                response = await requestAjax[api.method](api.url, newParams, config)
+            } catch (err) {
+                response = err;
+            }
+        } else if (api.method === 'delete' || api.method === 'get') {
+            config.params = newParams;
+            try {
+                response = await requestAjax[api.method](api.url, config)
+            } catch (err) {
+                response = err;
+            }
+        }
+
+        return response;
+    }
+}
 
 /**
  * 并发请求：axios.all() , axios.spread()
@@ -94,5 +147,4 @@ axios.get('/user/12345', {
 source.cancel('Operation canceled by the user.');
 
 */
-
-export default request
+export { requestAjax, Http };
