@@ -1,0 +1,11 @@
+{
+  "response": null,
+  "ajaxUrl": "http://10.16.241.70:8089/api/odctest/odcTestTwo",
+  "node": {
+    "zysf.odctest.odcTestThree": {
+      "methodsFun": "odcTestThree"
+    }
+  },
+  "errorMethodsFun": "errorFlow2",
+  "endMethodsFun": "endFlow2"
+}

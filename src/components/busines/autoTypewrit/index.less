@@ -1,0 +1,43 @@
+.autoTypewrit-modal {
+    background-color: #fff;
+    box-shadow      : 0 0 21px rgba(51, 51, 51, .41);
+    border-radius   : 4px;
+
+    .tableView {
+        padding: 0 5px 5px;
+    }
+
+    .condition {
+        .condition-select {
+            width: 120px;
+
+            &.condition-select-one {
+                width: 70px;
+            }
+        }
+
+        padding: 5px;
+    }
+
+    .typewrit-desc-wrap {
+        border    : #e1e1e1 1px solid;
+        padding   : 10px;
+        height    : 60px;
+        word-wrap : break-word;
+        word-break: break-all;
+        overflow-y: auto;
+    }
+}
+
+.has-error {
+
+    .condition-input.vcu-input,
+    .condition-select.vcu-select-sm .vcu-select-selection--single {
+        border-color: #e1e1e1 !important;
+        box-shadow  : 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .condition-select .vcu-select-arrow {
+        color: rgba(0, 0, 0, 0.25);
+    }
+}

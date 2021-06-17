@@ -1,0 +1,15 @@
+{
+  "response": null,
+  "ajaxUrl": "http://10.16.241.70:8089/api/odctest/odcTestOne",
+  "node": {
+    "zysf.odctest.ModalShow-1":{
+      "modal":{
+        "title": "要不要？",
+        "okText": "要",
+        "cancelText": "不要"
+      }
+    }
+  },
+  "errorMethodsFun": "errorFlow1",
+  "endMethodsFun": "endFlow1"
+}

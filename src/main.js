@@ -1,28 +1,46 @@
-import Vue from 'vue'
-import App from './App'
-import Vcu from 'vcu'
+import Vue from 'vue';
+import App from './App.vue';
 import { router } from './router/index'
 import store from './store';
-import { requestAjax, Http } from '@/service';
-import ElementDataset from 'element-dataset'
-import 'babel-polyfill'
+import VCU from 'vcu';
+import VueWechatTitle from 'vue-wechat-title';
+import Uicomponents from '@/components/ui';
+import importDirective from '@/directive';
+import appConfig from "@/config";
+import util from '@/utils';
+import _ from "lodash";
+import VCUTable from 'vcu-table';
+import request from '@/utils/request';
 
-require('./mock')
+/* 兼容低版本浏览器 */
+import '@babel/polyfill';
+import Es6Promise from 'es6-promise'
+Es6Promise.polyfill()
 
-ElementDataset();
-Vue.use(Vcu)
+Vue.use(VueWechatTitle)
+Vue.use(VCU)
+Vue.use(Uicomponents)
+Vue.use(VCUTable);
+VCUTable.setup({
+  request: request,
+  table: {
+    border: true,
+    round: true,
+    stripe: true,
+    resizable: true
+  }
+})
 
-Vue.prototype.request = requestAjax; //axios 原生方法
-Vue.prototype.http = Http; // 根据业务二次封装后axios
-
+/* 工具 */
+Vue.prototype.util = util;
+/* 注册指令*/
+importDirective(Vue);
+/* 全局配置参数 */
+Vue.prototype.appConfig = appConfig;
+window.debounceTime = appConfig.debounceTime;
 Vue.config.productionTip = false;
-/* eslint-disable no-new */
-let vue = new Vue({
-    el: '#app',
-    router,
-    store: store,
-    components: { App },
-    template: '<App/>'
-});
-
-export default vue;
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')

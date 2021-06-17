@@ -1,0 +1,40 @@
+{
+  "initResponse": null,
+  "currIndex": null,
+  "flowArr": [
+    {
+      "response": null,
+      "ajaxUrl": "http://10.16.241.70:8089/api/odctest/odcTestOne",
+      "node": {},
+      "errorMethodsFun": "errorFlowArr1",
+      "endMethodsFun": ""
+    },
+    {
+      "response": null,
+      "ajaxUrl": "http://10.16.241.70:8089/api/odctest/odcTestTwo",
+      "node": {
+        "zysf.odctest.odcTestThree": {
+          "methodsFun": "odcTestThreeArr"
+        }
+      },
+      "errorMethodsFun": "errorFlowArr2",
+      "endMethodsFun": "endFlowArr2"
+    },
+    {
+      "response": null,
+      "ajaxUrl": "http://10.16.241.70:8089/api/odctest/odcTestThree",
+      "node": {},
+      "errorMethodsFun": "errorFlowArr3",
+      "endMethodsFun": ""
+    },
+    {
+      "response": null,
+      "ajaxUrl": "http://10.16.241.70:8089/api/odctest/odcTestFour",
+      "node": {},
+      "errorMethodsFun": "errorFlowArr4",
+      "endMethodsFun": ""
+    }
+  ],
+  "errorMethodsFun": "errorFlowArrLast",
+  "endMethodsFun": "endFlowArrLast"
+}

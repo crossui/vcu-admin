@@ -1,0 +1,195 @@
+/* ui 全局覆盖 */
+@text-color               : #000;
+//全局禁用颜色
+@disabled-color           : fade(#000, 55%);
+@background-color-base    : hsv(0, 0, 80%);
+@disabled-color-dark      : fade(#fff, 85%);
+@disabled-bg              : #ddd;
+//layout
+@layout-body-background   : #f0f0f0;
+@layout-header-height     : 42px;
+@layout-header-padding    : 0px;
+@layout-header-height     : none;
+@layout-header-background : @primary-color;
+
+//menu
+@menu-collapsed-width     : 50px;
+@menu-item-vertical-margin: 0px;
+@menu-item-boundary-margin: 0px;
+
+.vcu-menu-submenu>.vcu-menu {
+    background-color: #d7d7d7;
+}
+
+.vcu-menu:not(.vcu-menu-horizontal) .vcu-menu-item-selected {
+    background-color: @primary-color;
+    color           : #fff;
+}
+
+.vcu-menu-horizontal {
+    background-color: @primary-color;
+    color           : #fff;
+    line-height     : 40px;
+    border-bottom   : 0;
+
+    >.vcu-menu-item,
+    >.vcu-menu-item:hover,
+    >.vcu-menu-item-selected,
+    >.vcu-menu-item-active,
+    >.vcu-menu-item-open,
+    >.vcu-menu-submenu,
+    >.vcu-menu-submenu:hover,
+    >.vcu-menu-submenu-open,
+    >.vcu-menu-submenu-selected,
+    >.vcu-menu-submenu-active,
+    &:not(.vcu-menu-dark)>.vcu-menu-item:hover,
+    &:not(.vcu-menu-dark)>.vcu-menu-submenu-selected,
+    &:not(.vcu-menu-dark)>.vcu-menu-submenu:hover {
+        line-height  : 40px;
+        color        : #fff !important;
+        border-bottom: 0 !important;
+    }
+
+    .vcu-menu-submenu-title,
+    .vcu-menu-submenu-title:hover {
+        color: #fff;
+    }
+
+    >.vcu-menu-submenu-selected,
+    >.vcu-menu-submenu-active,
+    >.vcu-menu-submenu:hover,
+    >.vcu-menu-item:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+}
+
+//tabs
+@tabs-active-color : @primary-color;
+@tabs-hover-color  : @primary-color;
+
+
+.vcu-tabs-nav .vcu-tabs-tab.vcu-tabs-tab-active {
+    background-color: @primary-color;
+    color           : #fff;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+//input
+@input-hover-border-color      : @primary-color;
+@input-number-handler-hover-bg : @primary-color;
+
+
+//breadcrumb
+@breadcrumb-link-color-hover        : @primary-color;
+//slider
+@slider-handle-color                : tint(@primary-color, 30%);
+@slider-handle-color-hover          : tint(@primary-color, 30%);
+@slider-track-background-color      : @primary-color;
+@slider-track-background-color-hover: @primary-color;
+@slider-dot-border-color            : @primary-color;
+//tree
+@tree-node-selected-bg              : tint(@primary-color, 80%);
+
+//btn
+.vcu-btn:focus,
+.vcu-btn:hover,
+.vcu-btn:active,
+.vcu-btn.active {
+    border-color: tint(@primary-color, 10%);
+    color       : tint(@primary-color, 10%);
+}
+
+.vcu-btn-primary:not(:disabled),
+.vcu-btn-primary:focus:not(:disabled),
+.vcu-btn-primary:hover:not(:disabled),
+.vcu-btn-primary:active:not(:disabled),
+.vcu-btn-primary.active:not(:disabled),
+.vcu-btn.vcu-btn-primary:focus:not(:disabled),
+.vcu-btn.vcu-btn-primary:hover:not(:disabled),
+.vcu-btn.vcu-btn-primary:active:not(:disabled),
+.vcu-btn.vcu-btn-primary.active:not(:disabled) {
+    background-color: tint(@primary-color, 10%);
+    color           : #fff;
+}
+
+
+//table
+@table-row-hover-bg         : tint(@primary-color, 80%);
+@tableTdColors1             : red,
+orange,
+green,
+cyan,
+blue,
+purple,
+magenta,
+aqua,
+lime;
+
+@tableTdColors2: mistyrose,
+    cornsilk,
+    palegreen,
+    lightcyan,
+    lightskyblue,
+    lavender,
+    pink;
+
+.table-td-color-classes1(@i: length(@tableTdColors1)) when (@i > 0) {
+    .table-td-color-classes1(@i - 1);
+    @color: extract(@tableTdColors1, @i);
+
+    &.@{color}-table-row td {
+        background: @color;
+        color     : #fff;
+    }
+}
+
+.table-td-color-classes2(@i: length(@tableTdColors2)) when (@i > 0) {
+    .table-td-color-classes2(@i - 1);
+    @color: extract(@tableTdColors2, @i);
+
+    &.@{color}-table-row td {
+        background: @color;
+        color     : @text-color;
+    }
+}
+
+.vcu-table-tbody>tr {
+    &:hover {
+        &:not(.vcu-table-expanded-row)>td {
+            color: @text-color;
+        }
+    }
+}
+
+.select-table-row {
+    background-color: @primary-color;
+    color           : #fff;
+}
+
+.vcu-table-wrapper {
+    .vcu-table-row {
+        &.odd-table-row td {
+            background: @table-selected-row-bg;
+        }
+
+        .table-td-color-classes1()
+    }
+}
+
+
+//=================================局部覆盖========================================================//
+
+/* 导航标签 */
+.tags-nav {
+    .scroll-outer {
+        .scroll-body {
+            .page-tags.closable {
+                background-color: @primary-color;
+            }
+        }
+    }
+}

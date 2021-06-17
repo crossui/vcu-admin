@@ -1,0 +1,84 @@
+@scrollbar-prefix-cls: ~"scrollbar";
+.@{scrollbar-prefix-cls} {
+    overflow: hidden;
+    position: relative;
+}
+
+.@{scrollbar-prefix-cls}:active>.@{scrollbar-prefix-cls}__bar,
+.@{scrollbar-prefix-cls}:focus>.@{scrollbar-prefix-cls}__bar,
+.@{scrollbar-prefix-cls}:hover>.@{scrollbar-prefix-cls}__bar {
+    opacity: 1;
+    transition: opacity .34s ease-out
+}
+
+.@{scrollbar-prefix-cls}__wrap {
+    overflow: scroll;
+    height: 100%;
+}
+
+.@{scrollbar-prefix-cls}__wrap:not(.@{scrollbar-prefix-cls}__wrap--hidden-default) {
+    padding-bottom: 10px
+}
+
+.@{scrollbar-prefix-cls}__wrap--hidden-default::-webkit-scrollbar,
+.@{scrollbar-prefix-cls}__wrap::-webkit-scrollbar {
+    width: 0;
+    height: 0
+}
+
+.@{scrollbar-prefix-cls}__wrap--hidden-default,
+.@{scrollbar-prefix-cls}__wrap {
+    -ms-scroll-chaining: chained;
+    -ms-overflow-style: none;
+    -ms-content-zooming: zoom;
+    -ms-scroll-rails: none;
+    -ms-content-zoom-limit-min: 100%;
+    -ms-content-zoom-limit-max: 500%;
+    -ms-scroll-snap-type: proximity;
+    -ms-scroll-snap-points-x: snapList(100%, 200%, 300%, 400%, 500%);
+    -ms-overflow-style: none;
+    overflow: auto;
+}
+
+.@{scrollbar-prefix-cls}__thumb {
+    position: relative;
+    display: block;
+    width: 0;
+    height: 0;
+    cursor: pointer;
+    border-radius: inherit;
+    background-color: hsla(220, 4%, 58%, .3);
+    transition: background-color .3s
+}
+
+.@{scrollbar-prefix-cls}__thumb:hover {
+    background-color: hsla(220, 4%, 58%, .5)
+}
+
+.@{scrollbar-prefix-cls}__bar {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    z-index: 1;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity .12s ease-out
+}
+
+.@{scrollbar-prefix-cls}__bar.is-vertical {
+    width: 6px;
+    top: 2px
+}
+
+.@{scrollbar-prefix-cls}__bar.is-vertical>div {
+    width: 100%
+}
+
+.@{scrollbar-prefix-cls}__bar.is-horizontal {
+    height: 6px;
+    left: 2px
+}
+
+.@{scrollbar-prefix-cls}__bar.is-horizontal>div {
+    height: 100%
+}

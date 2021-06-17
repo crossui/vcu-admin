@@ -1,0 +1,49 @@
+.app-main {
+    height: calc(100%);
+
+    .sider-wrap {
+        background  : #fff;
+        border-right: 1px solid #e8e8e8;
+        overflow    : hidden;
+        overflow-y  : scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .vcu-menu-inline,
+        .vcu-menu-vertical-left {
+            border-right: 0px;
+        }
+
+    }
+
+
+    .main-content-con {
+
+        .content-wrapper {
+            padding   : 15px 15px;
+            height    : calc(100%);
+            overflow-y: auto;
+            position  : relative;
+        }
+
+    }
+}
+
+/*fade-transform*/
+
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    transition: all .5s;
+}
+
+.fade-transform-enter {
+    opacity  : 0;
+    transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+    opacity  : 0;
+    transform: translateX(30px);
+}
